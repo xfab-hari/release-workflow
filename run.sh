@@ -1,5 +1,5 @@
 git add .
-git commit -m "update"
+git commit -m "update version"
 git push origin main
 
 ver=$(git tag | tail -1)

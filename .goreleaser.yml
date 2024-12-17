@@ -21,8 +21,8 @@ builds:
       - CGO_ENABLED=0
     # flags:
     #   - -mod=vendor
-# archives:
-#   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+archives:
+  - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
 #     replacements:
 #       darwin: Darwin
 #       linux: Linux
