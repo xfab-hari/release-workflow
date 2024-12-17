@@ -8,7 +8,69 @@ on:
 permissions:
   contents: write
 
+env:
+  # This should stay in sync with the version in <REPO_ROOT>/.go-version
+  GO_VERSION: "1.23.4"
+  # This should stay in sync with the version in <REPO_ROOT>/.golangci-lint-version
+  GOLANGCI_LINT_VERSION: "v1.62.2"
+
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+
+    - name: Run golangci-lint
+      uses: golangci/golangci-lint-action@v6
+      with:
+        version: ${{ env.GOLANGCI_LINT_VERSION }}
+        args: --timeout 10m # Set timeout to 10 minutes
+        only-new-issues: true
+
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+
+    - name: Check if "go generate" produces output
+      run: ./.github/scripts/go-generate.sh
+
+  tidy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+
+    - name: Check if "go mod tidy" produces output
+      run: ./.github/scripts/go-mod-tidy.sh
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: ${{ env.GO_VERSION }}
+
+    - name: Run Go tests
+      run: go test ./backend/...
+
+
   goreleaser:
     runs-on: ubuntu-latest
     steps:
@@ -24,7 +86,8 @@ jobs:
         name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.23.4
+          go-version: ${{ env.GO_VERSION }}
+
       -
         name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v6
