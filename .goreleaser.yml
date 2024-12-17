@@ -6,12 +6,12 @@ project_name: release-testing
 builds:
   - binary: release-testing
     goos:
-      - darwin
+      # - darwin
       - linux
-      - windows
+      # - windows
     goarch:
       - amd64
-      - arm64
+      # - arm64
     # ignore:
     #   - goos: windows
     #     goarch: arm
@@ -24,14 +24,14 @@ builds:
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     files:
-      - "dist/*" #'{{ .ProjectName }}'  # Include only the binary file
+      - "README.md" #'{{ .ProjectName }}'  # Include only the binary file
 #     replacements:
 #       darwin: Darwin
 #       linux: Linux
 #       windows: Windows
 #       amd64: x86_64
-snapshot:
-  name_template: SNAPSHOT-{{ .Commit }}
+# snapshot:
+#   name_template: SNAPSHOT-{{ .Commit }}
   
 release:
   prerelease: auto
