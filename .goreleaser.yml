@@ -23,12 +23,10 @@ builds:
     # flags:
     #   - -mod=vendor
 
-source:
-  # Whether this pipe is enabled or not.
-  enabled: true
-  name_template: "{{ .ProjectName }}"
-  format: "tar"
-  prefix_template: "{{ .ProjectName }}-{{ .Version }}/"
+# source:
+#   # Whether this pipe is enabled or not.
+#   enabled: true
+#   format: "tar"
 
 
 archives:
