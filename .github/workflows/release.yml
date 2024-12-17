@@ -70,7 +70,6 @@ jobs:
     - name: Run Go tests
       run: go test ./backend/...
 
-
   goreleaser:
     runs-on: ubuntu-latest
     steps:
