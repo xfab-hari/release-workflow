@@ -27,7 +27,7 @@ source:
   # Whether this pipe is enabled or not.
   enabled: false
   files:
-    - none*
+    - none
 
 
 archives:
