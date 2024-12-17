@@ -6,12 +6,12 @@ project_name: release-testing
 builds:
   - binary: release-testing
     goos:
-      # - darwin
-      - linux
+      - darwin
+      # - linux
       # - windows
     goarch:
-      - amd64
-      # - arm64
+      # - amd64
+      - arm64
     # ignore:
     #   - goos: windows
     #     goarch: arm
@@ -26,8 +26,8 @@ source:
   # Whether this pipe is enabled or not.
   enabled: false
 
-archives:
-  - format: binary
+# archives:
+#   - format: binary
 
 # archives:
 #   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
