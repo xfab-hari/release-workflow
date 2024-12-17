@@ -1,4 +1,4 @@
-project_name: release-testing
+project_name: xfab
 # before:
 #   hooks:
 #     - go mod tidy
@@ -7,10 +7,10 @@ builds:
   - binary: release-testing
     goos:
       - darwin
-      # - linux
-      # - windows
+      - linux
+      - windows
     goarch:
-      # - amd64
+      - amd64
       - arm64
     # ignore:
     #   - goos: windows
@@ -48,24 +48,24 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 
-# release:
-#   prerelease: auto
-#   header: |
-#     ## Features
+release:
+  prerelease: auto
+  header: |
+    ## Features
 
-#     List of newly introduced features:
+    List of newly introduced features:
 
-#     - Item 1
-#     - Item 2
+    - Item 1
+    - Item 2
 
-#     ## Bug fixes
+    ## Bug fixes
 
-#     List of fixed issues:
+    List of fixed issues:
 
-#     - Item 1
-#     - Item 2
+    - Item 1
+    - Item 2
 
-#     ## Code changes
+    ## Code changes
 
-#     - Item 1
-#     - Item 2
+    - Item 1
+    - Item 2
