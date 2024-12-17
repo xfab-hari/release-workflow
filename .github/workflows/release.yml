@@ -31,7 +31,7 @@ jobs:
         with:
           distribution: goreleaser
           # version: 2
-          version: ${{ env.GITHUB_REF_NAME }}
+          version: latest
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.PUBLISHER_TOKEN }}
