@@ -28,16 +28,11 @@ source:
 
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+    builds:
+      - default
     files:
-      - "README.md" #'{{ .ProjectName }}'  # Include only the binary file
-    # replacements:
-    #   darwin: Darwin
-    #   linux: Linux
-    #   windows: Windows
-    #   amd64: x86_64  
-# snapshot:
-#   name_template: SNAPSHOT-{{ .Commit }}
-  
+      - "README.md" #'{{ .ProjectName }}'  # Include./ only the binary file
+
 checksum:
   name_template: 'checksums.txt'
 
