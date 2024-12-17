@@ -23,15 +23,7 @@ builds:
     #   - -mod=vendor
 
 source:
-  # Whether this pipe is enabled or not.
   enabled: false
-  format: "tar"
-  files:
-    - none*
-
-
-  
-
 
 archives:
   - format: tar.gz
@@ -39,8 +31,8 @@ archives:
       - # Which GOOS to override the format for.
         goos: windows
         format: zip
-    # files:
-    #   - docs/*
+    files:
+      - docs/*
 
 
 # archives:
@@ -53,24 +45,24 @@ archives:
 checksum:
   name_template: 'checksums.txt'
 
-release:
-  prerelease: auto
-  header: |
-    ## Features
+# release:
+#   prerelease: auto
+#   header: |
+#     ## Features
 
-    List of newly introduced features:
+#     List of newly introduced features:
 
-    - Item 1
-    - Item 2
+#     - Item 1
+#     - Item 2
 
-    ## Bug fixes
+#     ## Bug fixes
 
-    List of fixed issues:
+#     List of fixed issues:
 
-    - Item 1
-    - Item 2
+#     - Item 1
+#     - Item 2
 
-    ## Code changes
+#     ## Code changes
 
-    - Item 1
-    - Item 2
+#     - Item 1
+#     - Item 2
