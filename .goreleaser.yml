@@ -24,7 +24,7 @@ builds:
 
 source:
   # Whether this pipe is enabled or not.
-  enabled: true
+  enabled: false
   format: "tar"
   files:
     - none*
