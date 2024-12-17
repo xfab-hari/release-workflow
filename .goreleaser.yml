@@ -30,11 +30,11 @@ archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     files:
       - "README.md" #'{{ .ProjectName }}'  # Include only the binary file
-#     replacements:
-#       darwin: Darwin
-#       linux: Linux
-#       windows: Windows
-#       amd64: x86_64
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      amd64: x86_64
 # snapshot:
 #   name_template: SNAPSHOT-{{ .Commit }}
   
