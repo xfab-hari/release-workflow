@@ -34,7 +34,6 @@ checksum:
 
 release:
   prerelease: auto
-  header: goreleaser release --release-header RELEASE_NOTES.md
     
   footer: |
     #### Made with ❤️ by the xFAB team
