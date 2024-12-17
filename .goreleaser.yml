@@ -5,6 +5,7 @@ project_name: release-testing
 
 builds:
   - binary: release-testing
+    id: release-testing
     goos:
       - darwin
       # - linux
@@ -25,9 +26,20 @@ builds:
 source:
   # Whether this pipe is enabled or not.
   enabled: false
+  files:
+    - none*
 
-# archives:
-#   - format: binary
+
+archives:
+  - build: release-testing
+    format: tar.gz
+    format_overrides:
+      - # Which GOOS to override the format for.
+        goos: windows
+        format: zip
+    files:
+      - docs/*
+
 
 # archives:
 #   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
