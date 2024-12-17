@@ -42,10 +42,6 @@ checksum:
   name_template: 'checksums.txt'
 
 release:
-  github:
-    owner: xfab-hari
-    name: Hari
-  draft: true
   prerelease: auto
   discussion_category_name: General
   header: |
