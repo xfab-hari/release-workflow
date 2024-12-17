@@ -26,6 +26,10 @@ source:
   # Whether this pipe is enabled or not.
   enabled: true
   format: "tar"
+  files:
+    - none*
+
+
   
 
 
