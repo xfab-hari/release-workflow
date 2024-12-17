@@ -27,7 +27,6 @@ archives:
       darwin: Darwin
       linux: Linux
       windows: Windows
-      386: x86
       amd64: x86_64
 snapshot:
   name_template: SNAPSHOT-{{ .Commit }}
