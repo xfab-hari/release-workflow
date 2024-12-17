@@ -5,7 +5,6 @@ project_name: release-testing
 
 builds:
   - binary: release-testing
-    id: release-testing
     goos:
       - darwin
       # - linux
@@ -30,8 +29,7 @@ builds:
 
 
 archives:
-  - build: release-testing
-    format: tar.gz
+  - format: tar.gz
     format_overrides:
       - # Which GOOS to override the format for.
         goos: windows
