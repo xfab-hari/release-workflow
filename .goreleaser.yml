@@ -21,6 +21,11 @@ builds:
       - CGO_ENABLED=0
     # flags:
     #   - -mod=vendor
+
+source:
+  # Whether this pipe is enabled or not.
+  enabled: false
+
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
     files:
