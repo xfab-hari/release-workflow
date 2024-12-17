@@ -34,7 +34,8 @@ archives:
     files:
       - docs/*
       - README.md
-      - 
+      - backend/config/*
+      - RELEASE_NOTES.md
 
 
 # archives:
