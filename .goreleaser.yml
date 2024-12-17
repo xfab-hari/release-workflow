@@ -22,10 +22,11 @@ builds:
     # flags:
     #   - -mod=vendor
 
-# source:
-#   # Whether this pipe is enabled or not.
-#   enabled: true
-#   format: "tar"
+source:
+  # Whether this pipe is enabled or not.
+  enabled: true
+  format: "tar"
+  
 
 
 archives:
