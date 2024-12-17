@@ -34,8 +34,8 @@ checksum:
 
 release:
   prerelease: auto
-  header: |
-    ``` $(cat RELEASE_NOTES.md) 
-    ```
+  header: | 
+    $(cat RELEASE_NOTES.md) 
+    
   footer: |
     #### Made with ❤️ by the xFAB team
