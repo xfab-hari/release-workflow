@@ -28,8 +28,8 @@ archives:
 #       linux: Linux
 #       windows: Windows
 #       amd64: x86_64
-# snapshot:
-#   name_template: SNAPSHOT-{{ .Commit }}
+snapshot:
+  name_template: SNAPSHOT-{{ .Commit }}
   
 release:
   prerelease: auto
