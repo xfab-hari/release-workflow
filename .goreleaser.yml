@@ -25,9 +25,10 @@ builds:
 
 source:
   # Whether this pipe is enabled or not.
-  enabled: false
-  files:
-    - none
+  enabled: true
+  name_template: "{{ .ProjectName }}"
+  format: "tar"
+  prefix_template: "{{ .ProjectName }}-{{ .Version }}/"
 
 
 archives:
