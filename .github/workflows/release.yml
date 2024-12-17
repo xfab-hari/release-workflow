@@ -3,7 +3,7 @@ name: goreleaser
 on:
   push:
     tags:
-      - "v*"
+      - "releases/v*"
 
 permissions:
   contents: write
@@ -96,4 +96,3 @@ jobs:
           args: release --clean --release-header RELEASE_NOTES.md
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_PUBLISHER_TOKEN }}
-
