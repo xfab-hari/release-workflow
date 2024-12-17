@@ -31,7 +31,7 @@ archives:
     builds:
       - binary : release-testing
     files:
-      - "README.md" #'{{ .ProjectName }}'  # Include./ only the binary file
+      - none*
 
 checksum:
   name_template: 'checksums.txt'
