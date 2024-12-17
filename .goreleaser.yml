@@ -1,4 +1,4 @@
-project_name: xfab
+project_name: xfab-observability-cli
 before:
   hooks:
     - go mod tidy
@@ -32,8 +32,8 @@ archives:
     files:
       - docs/*
       - README.md
-      - backend/config/*
       - RELEASE_NOTES.md
+      - backend/config/*
 
 
 # archives:
@@ -67,3 +67,5 @@ release:
 
     - Item 1
     - Item 2
+  footer: |
+    ### Made with ❤️ by the xFAB team
