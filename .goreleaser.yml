@@ -36,8 +36,8 @@ archives:
       - # Which GOOS to override the format for.
         goos: windows
         format: zip
-    files:
-      - docs/*
+    # files:
+    #   - docs/*
 
 
 # archives:
@@ -71,5 +71,3 @@ release:
 
     - Item 1
     - Item 2
-  footer: |
-    ## Thanks!
