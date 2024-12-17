@@ -23,6 +23,8 @@ builds:
     #   - -mod=vendor
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}'
+    files:
+      - '{{ .ProjectName }}'  # Include only the binary file
 #     replacements:
 #       darwin: Darwin
 #       linux: Linux
