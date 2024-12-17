@@ -43,7 +43,6 @@ checksum:
 
 release:
   prerelease: auto
-  discussion_category_name: General
   header: |
     ## Features
 
