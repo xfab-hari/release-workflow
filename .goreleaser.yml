@@ -21,7 +21,6 @@ archives:
         format: zip
     files:
       - docs/*
-      - README.md
       - CHANGELOG.md
       - backend/config/production.yaml
 
