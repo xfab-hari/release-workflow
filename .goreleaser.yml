@@ -16,9 +16,8 @@ source:
 
 archives:
   - format: tar.gz
-    format_overrides:
-      - # Which GOOS to override the format for.
-        goos: windows
+    format_overrides: # Which GOOS to override the format for.
+      - goos: windows
         format: zip
     files:
       - docs/*
