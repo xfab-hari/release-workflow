@@ -2,6 +2,7 @@ git add .
 git commit -m "update version"
 git push origin main
 
+
 # ver=$(git tag | tail -1)
 # ver=${ver:1}
 # new_ver=$(echo "$ver + 0.1" | bc)
