@@ -23,7 +23,7 @@ archives:
     files:
       - docs/*
       - README.md
-      - RELEASE_NOTES.md
+      - CHANGELOG.md
       - backend/config/production.yaml
 
 checksum:
