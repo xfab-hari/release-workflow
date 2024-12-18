@@ -1,7 +1,4 @@
 project_name: xfab-observability-cli
-before:
-  hooks:
-    - go mod tidy
 
 builds:
   - binary: xfab
@@ -27,13 +24,12 @@ archives:
       - docs/*
       - README.md
       - RELEASE_NOTES.md
-      - backend/config/*
+      - backend/config/production.yaml
 
 checksum:
-  name_template: 'checksums.txt'
+  split: true
 
 release:
   prerelease: auto
-    
   footer: |
-    #### Made with ❤️ by the xFAB team
+    #### Made with ❤️ by the xFab team
