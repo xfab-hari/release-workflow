@@ -89,6 +89,6 @@ jobs:
         with:
           distribution: goreleaser
           version: 2
-          args: release --clean --release-header CHANGELOG.md
+          args: release --clean --release-notes CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GORELEASER_PUBLISHER_TOKEN }}
