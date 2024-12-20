@@ -10,6 +10,7 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
+    main: ./backend/main.go
 
 source:
   enabled: false
