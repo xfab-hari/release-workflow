@@ -39,14 +39,14 @@ dockers:
     goos: windows
     goarch: amd64
   # Build for windows/arm64
-  - image_templates:
-      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
-    use: buildx
-    build_flag_templates:
-      - "--pull"
-      - "--platform=windows/arm64"
-    goos: windows
-    goarch: arm64
+  # - image_templates:
+  #     - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
+  #   use: buildx
+  #   build_flag_templates:
+  #     - "--pull"
+  #     - "--platform=windows/arm64"
+  #   goos: windows
+  #   goarch: arm64
 
 # docker_manifests:
 #   - name_template: "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}"
