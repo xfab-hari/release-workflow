@@ -34,6 +34,21 @@ COPY --link --from=backend-builder /app/backend/release-workflow /usr/local/bin/
 ENTRYPOINT ["release-workflow"]
 
 
+# Stage 3: frontend-builder
+FROM node:22-alpine AS frontend-builder
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the frontend source code
+COPY frontend/ ./frontend
+
+# Build the frontend
+WORKDIR /app/frontend
+RUN npm install
+RUN npm run build
+EXPOSE 3000
+
 
 # -------
 
