@@ -1,4 +1,3 @@
-
 # Stage 1: Build stage
 FROM golang:1.23-alpine AS backend-builder
 
@@ -12,14 +11,16 @@ RUN go mod tidy
 # Copy the source code
 COPY . .
 
-# Build the Go binary
+# Build the Go binary for different platforms
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xfab ./backend
 RUN CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o xfab.exe ./backend
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o xfab-arm64 ./backend
 RUN CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -o xfab-arm64.exe ./backend
 
-# Stage 2: Final image
-FROM debian:bullseye-slim
+# Stage 2: Final image (multi-platform compatible)
+FROM debian:bullseye-slim AS final
+
+# Ensure platform compatibility
 COPY --from=backend-builder /workspace/xfab /usr/local/bin/xfab
 COPY --from=backend-builder /workspace/xfab.exe /usr/local/bin/xfab.exe
 COPY --from=backend-builder /workspace/xfab-arm64 /usr/local/bin/xfab-arm64
