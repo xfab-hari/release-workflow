@@ -31,7 +31,7 @@ COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 ENTRYPOINT ["/app/release-workflow"]
 
 # Stage 3: Final image for Windows
-FROM mcr.microsoft.com/windows/servercore:ltsc2022 AS windows-final
+FROM mcr.microsoft.com/windows/servercore:ltsc2025 AS windows-final
 
 # Set the working directory
 WORKDIR C:/app
