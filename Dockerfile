@@ -1,38 +1,42 @@
-# -----
-### WORKING VERSION
-# Stage 1: Build stage
-FROM golang:1.23 AS backend-builder
+# Arguments for easy customization
+ARG GO_VERSION=1.23.4
+ARG DEBIAN_VERSION=bullseye-slim
 
-# Set the working directory
+# Stage 1: Build stage
+FROM golang:${GO_VERSION} AS backend-builder
+
+# Set working directory
 WORKDIR /app
 
-# Copy Go modules manifests
+# Copy and download dependencies
 COPY go.mod go.sum ./
-
-# Download dependencies
 RUN go mod download
 
-# Copy the rest of the application source code
-COPY backend/ ./backend
-
-COPY cmd/ ./cmd
-
-# Build the Go application
+# Copy application source and build
+COPY . .
 WORKDIR /app/backend
 RUN go build -o release-workflow main.go
 
-# Stage 2: Final stage
-FROM debian:bullseye-slim
+# Stage 2: Final stage (Distroless or Slim image)
+FROM debian:${DEBIAN_VERSION}
 
-# Set the working directory
+# Add a non-root user
+RUN useradd -m appuser
+USER appuser
+
+# Set working directory
 WORKDIR /app
 
 # Copy the built binary from the previous stage
 COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 
+# Add metadata
+LABEL maintainer="Your Name <your.email@example.com>"
+LABEL version="1.0"
+LABEL description="Release workflow application."
+
 # Set the entrypoint
 ENTRYPOINT ["/app/release-workflow"]
-
 
 
 # -------
