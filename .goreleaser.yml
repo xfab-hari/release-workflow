@@ -13,18 +13,31 @@ builds:
     main: ./backend/
 
 dockers:
-  - use: buildx
-    goos:
-      - linux
-      # - windows
-    goarch:
-      - amd64
-      # - arm64
-    image_templates:
-      - "ghcr.io/xfab-hari/:{{ .Tag }}-{{ .Arch }}"
+  - image_templates:
+      - "ghcr.io/xfab-hari:{{ .Tag }}-amd64"
+    use: buildx
     build_flag_templates:
-      - "pull"
-      - "--platform={{ .Arch }}"
+      - "--pull"
+      - "--platform=linux/amd64"
+  - image_templates:
+      - "ghcr.io/xfab-hari:{{ .Tag }}-arm64"
+    use: buildx
+    build_flag_templates:
+      - "--pull"
+      - "--platform=linux/arm64"
+
+  # - use: buildx
+  #   goos:
+  #     - linux
+  #     # - windows
+  #   goarch:
+  #     - amd64
+  #     # - arm64
+  #   image_templates:
+  #     - "ghcr.io/xfab-hari/:{{ .Tag }}-{{ .Arch }}"
+  #   build_flag_templates:
+  #     - "pull"
+  #     - "--platform={{ .Arch }}"
     # tags:
     #   - ghcr.io/xfab/xfab-observability-cli:latest
     #   - ghcr.io/xfab/xfab-observability-cli:{{.Version}}
