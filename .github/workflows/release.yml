@@ -141,3 +141,10 @@ jobs:
           -t ghcr.io/${{ github.repository_owner }}/release-workflow:latest-frontend \
           -t ghcr.io/${{ github.repository_owner }}/release-workflow:${{ github.ref_name }}-frontend \
           --push .
+
+    - name: Create and Push Combined Manifest
+      run: |
+        docker manifest create ghcr.io/${{ github.repository_owner }}/release-workflow:latest \
+          ghcr.io/${{ github.repository_owner }}/release-workflow:latest-frontend \
+          ghcr.io/${{ github.repository_owner }}/release-workflow:latest-backend
+        docker manifest push ghcr.io/${{ github.repository_owner }}/release-workflow:latest
