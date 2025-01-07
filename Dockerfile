@@ -45,9 +45,9 @@ COPY frontend/ ./frontend
 
 # Build the frontend
 WORKDIR /app/frontend
-RUN npm install
-RUN npm run build
-EXPOSE 3000
+# RUN npm install
+# RUN npm run build
+# EXPOSE 3000
 
 
 # -------
