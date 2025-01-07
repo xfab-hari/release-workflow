@@ -1,5 +1,5 @@
 # Stage 1: Build stage
-FROM golang:1.20 AS backend-builder
+FROM golang:1.23 AS backend-builder
 
 # Set the working directory
 WORKDIR /app
