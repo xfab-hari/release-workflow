@@ -13,6 +13,8 @@ RUN go mod download
 # Copy the rest of the application source code
 COPY backend/ ./backend
 
+COPY cmd/ ./cmd
+
 # Build the Go application
 WORKDIR /app/backend
 RUN go build -o xfab-backend main.go
