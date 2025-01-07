@@ -1,10 +1,15 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package main
 
-import "github.com/xfab-hari/release-workflow/cmd"
+import (
+	"fmt"
+	"runtime"
+
+	"github.com/xfab-hari/release-workflow/cmd"
+)
+
+var version = "dev"
 
 func main() {
+	fmt.Println("Example Running:", version, runtime.GOOS, runtime.GOARCH)
 	cmd.Execute()
 }
