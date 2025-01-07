@@ -1,32 +1,34 @@
 # Stage 1: Build stage
-FROM golang:1.23-alpine AS backend-builder
+FROM golang:1.23 AS backend-builder
 
 # Set the working directory
-WORKDIR /workspace
+WORKDIR /app
 
-# Copy Go modules and download dependencies
+# Copy Go modules manifests
 COPY go.mod go.sum ./
-RUN go mod tidy
 
-# Copy the source code
-COPY . .
+# Download dependencies
+RUN go mod download
 
-# Build the Go binary for different platforms
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xfab ./backend
-RUN CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o xfab.exe ./backend
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o xfab-arm64 ./backend
-RUN CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -o xfab-arm64.exe ./backend
+# Copy the rest of the application source code
+COPY backend/ ./backend
+COPY cmd/ ./cmd
 
-# Stage 2: Final image (multi-platform compatible)
-FROM debian:bullseye-slim AS final
+# Build the Go application
+WORKDIR /app/backend
+RUN go build -o release-workflow main.go
 
-# Ensure platform compatibility
-COPY --from=backend-builder /workspace/xfab /usr/local/bin/xfab
-COPY --from=backend-builder /workspace/xfab.exe /usr/local/bin/xfab.exe
-COPY --from=backend-builder /workspace/xfab-arm64 /usr/local/bin/xfab-arm64
-COPY --from=backend-builder /workspace/xfab-arm64.exe /usr/local/bin/xfab-arm64.exe
+# Stage 2: Final stage
+FROM debian:bullseye-slim
 
-ENTRYPOINT ["/usr/local/bin/xfab"]
+# Set the working directory
+WORKDIR /app
+
+# Copy the built binary from the previous stage
+COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
+
+# Set the entrypoint
+ENTRYPOINT ["/app/release-workflow"]
 
 
 # ### WORKING VERSION
