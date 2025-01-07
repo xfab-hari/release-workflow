@@ -17,7 +17,7 @@ COPY cmd/ ./cmd
 
 # Build the Go application
 WORKDIR /app/backend
-RUN go build -o xfab-backend main.go
+RUN go build -o release-workflow main.go
 
 # Stage 2: Final stage
 FROM debian:bullseye-slim
@@ -26,10 +26,10 @@ FROM debian:bullseye-slim
 WORKDIR /app
 
 # Copy the built binary from the previous stage
-COPY --from=backend-builder /app/backend/xfab-backend /app/xfab-backend
+COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 
 # Set the entrypoint
-ENTRYPOINT ["/app/xfab-backend"]
+ENTRYPOINT ["/app/release-workflow"]
 
 
 # # Use the official Golang image as the build stage
