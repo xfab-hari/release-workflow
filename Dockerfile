@@ -1,15 +1,32 @@
 # Stage 1: Build stage
 FROM golang:1.20 AS backend-builder
+
+# Set the working directory
 WORKDIR /app
-COPY backend/ ./backend/
+
+# Copy Go modules manifests
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy the rest of the application source code
+COPY backend/ ./backend
+
+# Build the Go application
 WORKDIR /app/backend
-RUN go mod tidy
 RUN go build -o xfab-backend main.go
 
 # Stage 2: Final stage
 FROM debian:bullseye-slim
+
+# Set the working directory
 WORKDIR /app
+
+# Copy the built binary from the previous stage
 COPY --from=backend-builder /app/backend/xfab-backend /app/xfab-backend
+
+# Set the entrypoint
 ENTRYPOINT ["/app/xfab-backend"]
 
 
