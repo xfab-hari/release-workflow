@@ -30,17 +30,17 @@ COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 # Set the entrypoint
 ENTRYPOINT ["/app/release-workflow"]
 
-# Stage 3: Final image for Windows
-FROM mcr.microsoft.com/windows/servercore:ltsc2025 AS windows-final
+# # Stage 3: Final image for Windows
+# FROM mcr.microsoft.com/windows/servercore:ltsc2025 AS windows-final
 
-# Set the working directory
-WORKDIR C:/app
+# # Set the working directory
+# WORKDIR C:/app
 
-# Copy the built binary from the previous stage
-COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow.exe
+# # Copy the built binary from the previous stage
+# COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow.exe
 
-# Set the entrypoint for Windows
-ENTRYPOINT ["C:/app/release-workflow.exe"]
+# # Set the entrypoint for Windows
+# ENTRYPOINT ["C:/app/release-workflow.exe"]
 
 
 # ### WORKING VERSION
