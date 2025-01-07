@@ -26,12 +26,23 @@ jobs:
     - name: Build and Push Backend Image
       run: |
         docker buildx build \
-          --platform linux/amd64 \
+          --platform linux/amd64,linux/arm64 \
           --file Dockerfile \
           --target backend-builder \
           -t ghcr.io/${{ github.repository_owner }}/xfab-backend:latest \
           -t ghcr.io/${{ github.repository_owner }}/xfab-backend:${{ github.ref_name }} \
           --push .
+
+
+    # - name: Build and Push Backend Image
+    #   run: |
+    #     docker buildx build \
+    #       --platform linux/amd64 \
+    #       --file Dockerfile \
+    #       --target backend-builder \
+    #       -t ghcr.io/${{ github.repository_owner }}/xfab-backend:latest \
+    #       -t ghcr.io/${{ github.repository_owner }}/xfab-backend:${{ github.ref_name }} \
+    #       --push .
 
     # - name: Build and Push Frontend Image
     #   run: |

@@ -1,40 +1,55 @@
-# Use the official Golang image as the build stage
-FROM golang:1.23.4 as builder
-
-# Set environment variables
-ENV GO111MODULE=on \
-    CGO_ENABLED=0 \
-    GOOS=linux \
-    GOARCH=amd64
-
-# Create and set the working directory
+# Stage 1: Build stage
+FROM golang:1.20 AS backend-builder
 WORKDIR /app
-
-# Copy go.mod and go.sum files for dependency resolution
-COPY backend/go.mod backend/go.sum ./
-RUN go mod download
-
-# Copy the entire backend source directory
 COPY backend/ ./backend/
-
-# Build the Go application
 WORKDIR /app/backend
-RUN go build -o /app/backend-app main.go
+RUN go mod tidy
+RUN go build -o xfab-backend main.go
 
-# Use a minimal image for the runtime
-FROM alpine:latest
+# Stage 2: Final stage
+FROM debian:bullseye-slim
+WORKDIR /app
+COPY --from=backend-builder /app/backend/xfab-backend /app/xfab-backend
+ENTRYPOINT ["/app/xfab-backend"]
 
-# Install essential dependencies (optional if needed for runtime)
-RUN apk --no-cache add ca-certificates
 
-# Set the working directory
-WORKDIR /root/
+# # Use the official Golang image as the build stage
+# FROM golang:1.23.4 as builder
 
-# Copy the binary from the build stage
-COPY --from=builder /app/backend-app .
+# # Set environment variables
+# ENV GO111MODULE=on \
+#     CGO_ENABLED=0 \
+#     GOOS=linux \
+#     GOARCH=amd64
 
-# Expose the port your app listens on
-EXPOSE 8080
+# # Create and set the working directory
+# WORKDIR /app
 
-# Run the binary
-CMD ["./backend-app"]
+# # Copy go.mod and go.sum files for dependency resolution
+# COPY backend/go.mod backend/go.sum ./
+# RUN go mod download
+
+# # Copy the entire backend source directory
+# COPY backend/ ./backend/
+
+# # Build the Go application
+# WORKDIR /app/backend
+# RUN go build -o /app/backend-app main.go
+
+# # Use a minimal image for the runtime
+# FROM alpine:latest
+
+# # Install essential dependencies (optional if needed for runtime)
+# RUN apk --no-cache add ca-certificates
+
+# # Set the working directory
+# WORKDIR /root/
+
+# # Copy the binary from the build stage
+# COPY --from=builder /app/backend-app .
+
+# # Expose the port your app listens on
+# EXPOSE 8080
+
+# # Run the binary
+# CMD ["./backend-app"]
