@@ -22,7 +22,7 @@ WORKDIR /app/backend
 RUN go build -o release-workflow main.go
 
 # Stage 2: Final stage
-FROM debian:bullseye-slim
+FROM debian:bullseye-slim AS final-image
 
 # Set the working directory
 WORKDIR /app
