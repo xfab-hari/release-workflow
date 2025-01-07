@@ -1,35 +1,71 @@
+
 # Stage 1: Build stage
-FROM golang:1.23 AS backend-builder
+FROM golang:1.23-alpine AS backend-builder
 
 # Set the working directory
-WORKDIR /app
+WORKDIR /workspace
 
-# Copy Go modules manifests
+# Copy Go modules and download dependencies
 COPY go.mod go.sum ./
+RUN go mod tidy
 
-# Download dependencies
-RUN go mod download
+# Copy the source code
+COPY . .
 
-# Copy the rest of the application source code
-COPY backend/ ./backend
+# Build the Go binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o xfab ./backend
+RUN CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -o xfab.exe ./backend
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o xfab-arm64 ./backend
+RUN CGO_ENABLED=0 GOOS=windows GOARCH=arm64 go build -o xfab-arm64.exe ./backend
 
-COPY cmd/ ./cmd
-
-# Build the Go application
-WORKDIR /app/backend
-RUN go build -o release-workflow main.go
-
-# Stage 2: Final stage
+# Stage 2: Final image
 FROM debian:bullseye-slim
+COPY --from=backend-builder /workspace/xfab /usr/local/bin/xfab
+COPY --from=backend-builder /workspace/xfab.exe /usr/local/bin/xfab.exe
+COPY --from=backend-builder /workspace/xfab-arm64 /usr/local/bin/xfab-arm64
+COPY --from=backend-builder /workspace/xfab-arm64.exe /usr/local/bin/xfab-arm64.exe
 
-# Set the working directory
-WORKDIR /app
+ENTRYPOINT ["/usr/local/bin/xfab"]
 
-# Copy the built binary from the previous stage
-COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 
-# Set the entrypoint
-ENTRYPOINT ["/app/release-workflow"]
+# ### WORKING VERSION
+# # Stage 1: Build stage
+# FROM golang:1.23 AS backend-builder
+
+# # Set the working directory
+# WORKDIR /app
+
+# # Copy Go modules manifests
+# COPY go.mod go.sum ./
+
+# # Download dependencies
+# RUN go mod download
+
+# # Copy the rest of the application source code
+# COPY backend/ ./backend
+
+# COPY cmd/ ./cmd
+
+# # Build the Go application
+# WORKDIR /app/backend
+# RUN go build -o release-workflow main.go
+
+# # Stage 2: Final stage
+# FROM debian:bullseye-slim
+
+# # Set the working directory
+# WORKDIR /app
+
+# # Copy the built binary from the previous stage
+# COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
+
+# # Set the entrypoint
+# ENTRYPOINT ["/app/release-workflow"]
+
+
+
+
+
 
 
 # # Use the official Golang image as the build stage
