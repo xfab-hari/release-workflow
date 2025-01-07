@@ -12,8 +12,8 @@ RUN go mod download
 
 # Copy the rest of the application source code
 COPY backend/ ./backend
-
-COPY cmd/ ./cmd
+COPY *.go ./backend/
+# COPY cmd/ ./cmd
 
 # Build the Go application
 WORKDIR /app/backend
