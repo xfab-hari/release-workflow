@@ -48,13 +48,13 @@ dockers:
     goos: windows
     goarch: arm64
 
-docker_manifests:
-  - name_template: "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}"
-    image_templates:
-      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
-      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
-      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-amd64"
-      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
+# docker_manifests:
+#   - name_template: "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}"
+#     image_templates:
+#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
+#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
+#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-amd64"
+#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
 
 
 # dockers:
