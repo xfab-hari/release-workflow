@@ -1,3 +1,5 @@
+# -----
+### WORKING VERSION
 # Stage 1: Build stage
 FROM golang:1.23 AS backend-builder
 
@@ -12,8 +14,8 @@ RUN go mod download
 
 # Copy the rest of the application source code
 COPY backend/ ./backend
-COPY *.go ./backend/
-# COPY cmd/ ./cmd
+
+COPY cmd/ ./cmd
 
 # Build the Go application
 WORKDIR /app/backend
@@ -30,42 +32,6 @@ COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
 
 # Set the entrypoint
 ENTRYPOINT ["/app/release-workflow"]
-
-
-# -----
-# ### WORKING VERSION
-# # Stage 1: Build stage
-# FROM golang:1.23 AS backend-builder
-
-# # Set the working directory
-# WORKDIR /app
-
-# # Copy Go modules manifests
-# COPY go.mod go.sum ./
-
-# # Download dependencies
-# RUN go mod download
-
-# # Copy the rest of the application source code
-# COPY backend/ ./backend
-
-# COPY cmd/ ./cmd
-
-# # Build the Go application
-# WORKDIR /app/backend
-# RUN go build -o release-workflow main.go
-
-# # Stage 2: Final stage
-# FROM debian:bullseye-slim
-
-# # Set the working directory
-# WORKDIR /app
-
-# # Copy the built binary from the previous stage
-# COPY --from=backend-builder /app/backend/release-workflow /app/release-workflow
-
-# # Set the entrypoint
-# ENTRYPOINT ["/app/release-workflow"]
 
 
 
