@@ -41,7 +41,7 @@ FROM node:22-alpine AS frontend-builder
 WORKDIR /app
 
 # Copy the frontend source code
-COPY frontend/ ./frontend
+# COPY frontend/ ./frontend
 
 # Build the frontend
 WORKDIR /app/frontend
