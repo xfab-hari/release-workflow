@@ -12,6 +12,27 @@ builds:
       - CGO_ENABLED=0
     main: ./backend/
 
+dockers:
+  - use: buildx
+    goos:
+      - linux
+      - windows
+    goarch:
+      - amd64
+      - arm64
+    image_templates:
+      - "ghcr.io/xfab-hari/:{{ .Tag }}-{{ .Arch }}"
+    build_flag_templates:
+      - "pull"
+      - "--platform={{ .Arch }}"
+    # tags:
+    #   - ghcr.io/xfab/xfab-observability-cli:latest
+    #   - ghcr.io/xfab/xfab-observability-cli:{{.Version}}
+    # dockerfile: ./Dockerfile
+    # target: backend-builder
+    # platform: linux/amd64
+    # push: true
+
 source:
   enabled: false
 
