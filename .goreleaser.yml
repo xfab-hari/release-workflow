@@ -13,84 +13,52 @@ builds:
     main: ./backend/
 
 
-# dockers:
-#   # Build for linux/amd64
-#   - image_templates:
-#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
-#     use: buildx
-#     build_flag_templates:
-#       - "--pull"
-#       - "--platform=linux/amd64"
-#   # Build for linux/arm64
-#   # - image_templates:
-#   #     - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
-#   #   use: buildx
-#   #   build_flag_templates:
-#   #     - "--pull"
-#   #     - "--platform=linux/arm64"
-#   #   goarch: arm64
-#   # # Build for windows/amd64
-#   # - image_templates:
-#   #     - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-amd64"
-#   #   use: buildx
-#   #   build_flag_templates:
-#   #     - "--pull"
-#   #     - "--platform=windows/amd64"
-#   #   goos: windows
-#   #   goarch: amd64
-#   # Build for windows/arm64
-#   # - image_templates:
-#   #     - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
-#   #   use: buildx
-#   #   build_flag_templates:
-#   #     - "--pull"
-#   #     - "--platform=windows/arm64"
-#   #   goos: windows
-#   #   goarch: arm64
+dockers:
+  # Build for linux/amd64
+  - image_templates:
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
+    use: buildx
+    build_flag_templates:
+      - --platform=linux/amd64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/xfab-hari/release-workflow
+      - --label=org.opencontainers.image.source=https://github.com/xfab-hari/release-workflow
+      - --label=org.opencontainers.image.version={{ .Tag }}
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
 
-# # docker_manifests:
-# #   - name_template: "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}"
-# #     image_templates:
-# #       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
-# #       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
-# #       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-amd64"
-# #       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-windows-arm64"
+      # - "--pull"
+      # - "--platform=linux/amd64"
+  # Build for linux/arm64
+  - image_templates:
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
+    use: buildx
+    build_flag_templates:
+      - --platform=linux/arm64
+      - --label=org.opencontainers.image.title={{ .ProjectName }}
+      - --label=org.opencontainers.image.description={{ .ProjectName }}
+      - --label=org.opencontainers.image.url=https://github.com/xfab-hari/release-workflow
+      - --label=org.opencontainers.image.source=https://github.com/xfab-hari/release-workflow
+      - --label=org.opencontainers.image.version={{ .Tag }}
+      - --label=org.opencontainers.image.created={{ time "2006-01-02T15:04:05Z07:00" }}
+      - --label=org.opencontainers.image.revision={{ .FullCommit }}
+      - --label=org.opencontainers.image.licenses=MIT
+      # - "--pull"
+      # - "--platform=linux/arm64"
+    goarch: arm64
 
+docker_manifests:
+  - name_template: "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}"
+    image_templates:
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
+  - name_template: "ghcr.io/xfab-hari/release-workflow:latest"
+    image_templates:
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
+      - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
 
-# dockers:
-#   - image_templates:
-#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-amd64"
-#     use: buildx
-#     build_flag_templates:
-#       - "--pull"
-#       - "--platform=linux/amd64"
-#   - image_templates:
-#       - "ghcr.io/xfab-hari/release-workflow:{{ .Tag }}-arm64"
-#     use: buildx
-#     build_flag_templates:
-#       - "--pull"
-#       - "--platform=linux/arm64"
-#     goarch: arm64
-
-  # - use: buildx
-  #   goos:
-  #     - linux
-  #     # - windows
-  #   goarch:
-  #     - amd64
-  #     # - arm64
-  #   image_templates:
-  #     - "ghcr.io/xfab-hari/:{{ .Tag }}-{{ .Arch }}"
-  #   build_flag_templates:
-  #     - "pull"
-  #     - "--platform={{ .Arch }}"
-    # tags:
-    #   - ghcr.io/xfab/xfab-observability-cli:latest
-    #   - ghcr.io/xfab/xfab-observability-cli:{{.Version}}
-    # dockerfile: ./Dockerfile
-    # target: backend-builder
-    # platform: linux/amd64
-    # push: true
 
 source:
   enabled: false
