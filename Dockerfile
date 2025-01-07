@@ -13,7 +13,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the rest of the application source code
-COPY . . 
+# COPY . . 
 # COPY backend/ ./backend
 # COPY cmd/ ./cmd
 
