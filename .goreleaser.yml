@@ -25,6 +25,7 @@ dockers:
     build_flag_templates:
       - "--pull"
       - "--platform=linux/arm64"
+    goarch: arm64
 
   # - use: buildx
   #   goos:
