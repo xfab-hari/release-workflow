@@ -128,8 +128,8 @@ jobs:
           --platform linux/amd64,linux/arm64 \
           --file Dockerfile \
           --target backend-builder \
-          -t ghcr.io/${{ github.repository_owner }}/release-workflow:latest-backend \
-          -t ghcr.io/${{ github.repository_owner }}/release-workflow:${{ github.ref_name }}-backend \
+          -t ghcr.io/${{ github.repository_owner }}/insights-backend:latest-backend \
+          -t ghcr.io/${{ github.repository_owner }}/insights-backend:${{ github.ref_name }}-backend \
           --push .
 
     - name: Build and Push Frontend Image
@@ -138,13 +138,6 @@ jobs:
           --platform linux/amd64,linux/arm64 \
           --file Dockerfile \
           --target frontend-builder \
-          -t ghcr.io/${{ github.repository_owner }}/release-workflow:latest-frontend \
-          -t ghcr.io/${{ github.repository_owner }}/release-workflow:${{ github.ref_name }}-frontend \
+          -t ghcr.io/${{ github.repository_owner }}/insights-backend:latest-frontend \
+          -t ghcr.io/${{ github.repository_owner }}/insights-backend:${{ github.ref_name }}-frontend \
           --push .
-
-    - name: Create and Push Combined Manifest
-      run: |
-        docker manifest create ghcr.io/${{ github.repository_owner }}/release-workflow:latest \
-          ghcr.io/${{ github.repository_owner }}/release-workflow:latest-frontend \
-          ghcr.io/${{ github.repository_owner }}/release-workflow:latest-backend
-        docker manifest push ghcr.io/${{ github.repository_owner }}/release-workflow:latest
