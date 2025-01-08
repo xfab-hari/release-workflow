@@ -14,6 +14,8 @@ env:
   GO_VERSION: "1.23.4"
   # This should stay in sync with the version in <REPO_ROOT>/.golangci-lint-version
   GOLANGCI_LINT_VERSION: "v1.62.2"
+  # Supported platforms for Docker builds
+  DOCKER_PLATFORMS: linux/amd64,linux/arm64
 
 jobs:
   lint:
@@ -125,7 +127,7 @@ jobs:
     - name: Build and Push Backend Image
       run: |
         docker buildx build \
-          --platform linux/amd64,linux/arm64 \
+          --platform ${{ env.DOCKER_PLATFORMS }} \
           --file Dockerfile \
           --target backend-builder \
           -t ghcr.io/${{ github.repository_owner }}/insights-backend:latest \
@@ -135,7 +137,7 @@ jobs:
     - name: Build and Push Frontend Image
       run: |
         docker buildx build \
-          --platform linux/amd64,linux/arm64 \
+          --platform ${{ env.DOCKER_PLATFORMS }} \
           --file Dockerfile \
           --target frontend-builder \
           -t ghcr.io/${{ github.repository_owner }}/insights-frontend:latest \
