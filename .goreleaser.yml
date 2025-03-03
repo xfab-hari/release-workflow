@@ -76,6 +76,7 @@ archives:
 checksum:
   split: true
 
+
 release:
   prerelease: auto
   footer: |
