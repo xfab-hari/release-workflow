@@ -105,7 +105,7 @@ jobs:
         with:
           distribution: goreleaser
           version: 2
-          args: release --clean --release-notes CHANGELOG.md
+          args: release --clean --release-notes CHANGELOG.md --timeout 60m
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -126,6 +126,8 @@ jobs:
         password: ${{secrets.GITHUB_TOKEN}}
 
     - name: Build and Push Backend Image
+      with:
+        args: --timeout 60m
       run: |
         docker buildx build \
           --platform ${{ env.DOCKER_PLATFORMS }} \
@@ -136,6 +138,8 @@ jobs:
           --push .
 
     - name: Build and Push Frontend Image
+      with:
+        args: --timeout 60m
       run: |
         docker buildx build \
           --platform ${{ env.DOCKER_PLATFORMS }} \
