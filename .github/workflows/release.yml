@@ -132,7 +132,7 @@ jobs:
           --platform ${{ env.DOCKER_PLATFORMS }} \
           --file Dockerfile \
           --target backend-builder \
-          -t ghcr.io/${{ github.repository_owner }}/insights-backend:latest \
+          -t ghcr.io/${{ github.repository_owner }}/insights-backend:latest-backend \
           -t ghcr.io/${{ github.repository_owner }}/insights-backend:${{ github.ref_name }} \
           --push .
 
