@@ -105,10 +105,10 @@ jobs:
         with:
           distribution: goreleaser
           version: 2
-          go-version: ${{ env.GO_VERSION }}
           args: release --clean --release-notes CHANGELOG.md --timeout 60m
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GO_VERSION: ${{ env.GO_VERSION }}
 
   images:
     runs-on: ubuntu-24.04
