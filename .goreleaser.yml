@@ -2,12 +2,12 @@ project_name: xfab-observability-cli
 
 builds:
   - binary: xfab
+    ldflags:
+      - -s -w -X "main.goversion={{ .Env.GO_VERSION }}"
     goos:
       - linux
-      - windows
     goarch:
       - amd64
-      - arm64
     env:
       - CGO_ENABLED=0
     main: ./backend/
