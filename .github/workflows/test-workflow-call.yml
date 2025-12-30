@@ -1,0 +1,44 @@
+name: Test Cross-Repo Workflow Call
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Name to pass to the reusable workflow"
+        required: true
+        default: "Hari"
+        type: string
+      environment:
+        description: "Environment to use"
+        required: false
+        default: "staging"
+        type: string
+
+jobs:
+  # Call the reusable workflow from git-demo repo
+  call-greet-workflow:
+    # TODO: Replace 'xfabric-sec' with your actual GitHub org/username
+    # TODO: Replace 'main' with 'master' if that's the default branch
+    uses: xfab-hari/git-demo/.github/workflows/reusable-greet.yml@main
+    with:
+      name: ${{ github.event.inputs.name }}
+      environment: ${{ github.event.inputs.environment }}
+    # secrets: inherit  # Uncomment to pass all secrets
+
+  # Use the output from the reusable workflow
+  print-result:
+    needs: call-greet-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print the greeting from reusable workflow
+        run: |
+          echo "📬 Received greeting: ${{ needs.call-greet-workflow.outputs.greeting }}"
+
+      - name: Summary
+        run: |
+          echo "## Cross-Repo Workflow Call Test ✅" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Successfully called reusable workflow from **git-demo** repo!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Output received:** ${{ needs.call-greet-workflow.outputs.greeting }}" >> $GITHUB_STEP_SUMMARY
+
